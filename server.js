@@ -31,7 +31,11 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/fml_db");
+var dbURI = "mongodb://localhost/fml_db";
+if (process.env.NODE_ENV === 'production') {
+    dbURI= "mongodb://heroku_b9ccl7t4:6fd437dfq4t391gi5kugp7ci0s@ds161505.mlab.com:61505/heroku_b9ccl7t4";
+}
+mongoose.connect(dbURI);
 var db = mongoose.connection;
 
 // Show any mongoose errors
